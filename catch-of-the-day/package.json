@@ -2,7 +2,7 @@
   "name": "cotd",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://gabriel-wilkes.github.io/react-ecommerce/catch-of-the-day/build/",
+  "homepage": "https://gabriel-wilkes.github.io/react-ecommerce/",
   "devDependencies": {
     "autoprefixer-stylus": "0.10.0",
     "babel-eslint": "^7.1.1",
@@ -11,6 +11,7 @@
     "eslint-plugin-flowtype": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.8.0",
+    "git-directory-deploy": "^1.5.1",
     "react-scripts": "0.6.1",
     "stylus": "0.54.5"
   },
@@ -29,7 +30,8 @@
     "eject": "react-scripts eject",
     "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
     "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css",
-    "deploy:now": "now ./build --public --cmd 'list ./content -s'"
+    "deploy:now": "now ./build --public --cmd 'list ./content -s'",
+    "deploy": "git-directory-deploy --directory build --branch gh-pages"
   },
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/.eslintrc"

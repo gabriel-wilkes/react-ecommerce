@@ -10,7 +10,7 @@ import NotFound from './components/NotFound';
 const Root = () => {
   return (
     //basename is for GitHub Pages
-    <BrowserRouter basename="/react-ecommerce/catch-of-the-day/build/">
+    <BrowserRouter basename="/react-ecommerce/">
       <div>
         <Match exactly pattern="/" component={StorePicker} />
         <Match pattern="/store/:storeId" component={App} />
