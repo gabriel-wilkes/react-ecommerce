@@ -1,6 +1,7 @@
 import React from 'react';
 import { formatPrice } from '../helpers';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
+import PropTypes from 'prop-types';
 
 class Order extends React.Component {
   constructor() {
@@ -38,8 +39,13 @@ class Order extends React.Component {
     )
   }
 
-  render() {
-    const orderIds = Object.keys(this.props.order);
+  render() { 
+    // Had to add this if statement to get working for new stores
+    var orderIds = [];
+    if (this.props.order) {
+      orderIds = Object.keys(this.props.order);
+    }
+
     const total = orderIds.reduce((prevTotal, key) => {
       const fish = this.props.fishes[key];
       const count = this.props.order[key];
@@ -73,9 +79,8 @@ class Order extends React.Component {
 }
 
 Order.propTypes = {
-  fishes: React.PropTypes.object.isRequired,
-  order: React.PropTypes.object.isRequired,
-  removeFromOrder: React.PropTypes.func.isRequired
+  fishes: PropTypes.object.isRequired,
+  removeFromOrder: PropTypes.func.isRequired
 };
 
 export default Order;

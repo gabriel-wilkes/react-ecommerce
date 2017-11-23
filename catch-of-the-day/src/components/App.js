@@ -4,7 +4,8 @@ import Order from './Order';
 import Inventory from './Inventory';
 import Fish from './Fish';
 import sampleFishes from '../sample-fishes';
-import base from '../base';
+import {base} from '../base';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
   constructor() {
@@ -26,19 +27,23 @@ class App extends React.Component {
 
   componentWillMount() {
     // this runs right before the <App> is rendered
-    this.ref = base.syncState(`${this.props.params.storeId}/fishes`
+    this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`
     ,{
       context: this,
-      state: 'fishes'
-    });
+      state: 'fishes'  
+    }); 
 
     // check if there is any order in localStorage
-    const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
+    const localStorageRef = localStorage.getItem(`order-${this.props.match.params.storeId}`);
 
     if(localStorage) {
       // update our App components's order state
       this.setState({
         order: JSON.parse(localStorageRef)
+      });
+    } else {
+      this.setState({
+        order: {}
       });
     }
   }
@@ -48,7 +53,7 @@ class App extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order));
+    localStorage.setItem(`order-${this.props.match.params.storeId}`, JSON.stringify(nextState.order));
   }
 
   addFish(fish) {
@@ -110,7 +115,7 @@ class App extends React.Component {
           <Order 
             fishes={this.state.fishes} 
             order={this.state.order} 
-            params={this.props.params}
+            params={this.props.match.params}
             removeFromOrder={this.removeFromOrder}
           />
           <Inventory 
@@ -119,7 +124,7 @@ class App extends React.Component {
             loadSamples={this.loadSamples} 
             fishes={this.state.fishes}
             updateFish={this.updateFish}
-            storeId={this.props.params.storeId}
+            storeId={this.props.match.params.storeId}
           />
         </div>
       )
@@ -127,7 +132,7 @@ class App extends React.Component {
   }
 
   App.propTypes = {
-    params: React.PropTypes.object.isRequired
+    match: PropTypes.object.isRequired
   };
 
   export default App;
