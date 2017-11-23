@@ -3,10 +3,6 @@ import { getFunName } from '../helpers';
 import PropTypes from 'prop-types';
 
 class StorePicker extends React.Component {
-  //constructor() {
-  //  super();
-  //  this.goToStore = this.goToStore.bind(this);
-  //}
 
   goToStore(event) {
     event.preventDefault();

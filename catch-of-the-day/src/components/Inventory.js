@@ -6,19 +6,11 @@ import 'firebase/auth';
 import PropTypes from 'prop-types';
 
 class Inventory extends React.Component {
-  constructor() {
-    super();
-    this.renderInventory = this.renderInventory.bind(this);
-    this.renderLogin = this.renderLogin.bind(this);
-    this.authenticate = this.authenticate.bind(this);
-    this.logout = this.logout.bind(this);
-    this.authHandler = this.authHandler.bind(this);    
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      uid: null,
-      owner: null
-    }
-  }
+
+  state = {
+    uid: null,
+    owner: null
+  };
 
   componentDidMount() {
     app.auth().onAuthStateChanged((user) => {
@@ -28,7 +20,7 @@ class Inventory extends React.Component {
     });
   }
 
-  handleChange(e, key) {
+  handleChange = (e, key) => {
     const fish = this.props.fishes[key];
     // take a copy of that fish and update it with the new data
     const updatedFish = {
@@ -36,23 +28,23 @@ class Inventory extends React.Component {
       [e.target.name]: e.target.value
     }
     this.props.updateFish(key, updatedFish);
-  }
+  };
 
-  authenticate(provider) {
+  authenticate = (provider) => {
     console.log(`Trying to log in with ${provider}`);
     app.auth().signInWithPopup(provider).then(() => {
       //return value is null
     });
-  }
+  };
 
-  logout() {
+  logout = () => {
     app.auth().signOut().then(() => {
       //return value is null
     });
     this.setState({ uid: null });
-  }
+  };
 
-  authHandler(err, authData) {
+  authHandler = (err, authData) => {
     if (err) {
       console.error(err);
       return;
@@ -77,9 +69,9 @@ class Inventory extends React.Component {
         owner: data.owner || authData.user.uid
       })
     });
-  }
+  };
 
-  renderLogin() {
+  renderLogin = () => {
     var facebook = new firebase.auth.FacebookAuthProvider();
     var github = new firebase.auth.GithubAuthProvider();
     var twitter = new firebase.auth.TwitterAuthProvider();
@@ -93,9 +85,9 @@ class Inventory extends React.Component {
         <button className="twitter" onClick={() => this.authenticate(twitter)}>Log In with Twitter</button>
       </nav>
     )
-  }
+  };
 
-  renderInventory(key) {
+  renderInventory = (key) => {
     const fish = this.props.fishes[key];
     return (
       <div className="fish-edit" key={key}>
@@ -110,7 +102,7 @@ class Inventory extends React.Component {
         <button onClick={() => this.props.removeFish(key)}>Remove Fish</button>
       </div>
     )
-  }
+  };
 
   render() {
     const logout = <button onClick={this.logout}>Log Out!</button>;
