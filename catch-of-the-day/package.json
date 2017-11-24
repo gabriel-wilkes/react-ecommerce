@@ -2,7 +2,7 @@
   "name": "cotd",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://gabriel-wilkes.github.io/react-ecommerce/",
+  "homepage-change-to-only-homepage-for-github-deploy": "https://gabriel-wilkes.github.io/react-ecommerce/",
   "devDependencies": {
     "autoprefixer-stylus": "0.14.0",
     "babel-eslint": "^8.0.2",
@@ -29,11 +29,13 @@
     "start": "PORT=3005 react-scripts start",
     "watch": "concurrently --names \"webpack, stylus\" --prefix name \"npm run start\" \"npm run styles:watch\"",
     "build": "react-scripts build",
+    "postbuild": "cp ./src/_redirects ./build",
     "eject": "react-scripts eject",
     "styles": "stylus -u autoprefixer-stylus ./src/css/style.styl -o ./src/css/style.css",
     "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/style.styl -o ./src/css/style.css",
     "deploy:now": "now ./build --public --cmd 'list ./content -s'",
-    "deploy": "git-directory-deploy --directory build --branch gh-pages"
+    "deploy:github": "git-directory-deploy --directory build --branch gh-pages",
+    "deploy": "git-directory-deploy --directory build --branch netlify"
   },
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/.eslintrc"
